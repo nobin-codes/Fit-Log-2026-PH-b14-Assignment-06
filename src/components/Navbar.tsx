@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
       <div className="relative mx-auto grid h-[70px] w-full max-w-[1218px] grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6">
-        {/* Mobile Menu Button */}
+        
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -29,7 +29,7 @@ export default function Navbar() {
           </span>
         </button>
 
-        {/* Logo */}
+       
         <div className="justify-self-start">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -47,7 +47,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Navigation */}
         <nav className="hidden items-center gap-2 sm:flex">
           <Link
             href="/"
@@ -72,7 +71,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Plan + Saved */}
+       
         <div className="flex items-center justify-self-end gap-5">
           <Link
             href="/my-plan"
@@ -98,7 +97,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+     
       {menuOpen && (
         <nav className="border-t border-[#242824] px-5 py-3 sm:hidden">
           <div className="flex flex-col gap-1">

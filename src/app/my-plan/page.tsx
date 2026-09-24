@@ -8,14 +8,8 @@ import { usePlan } from "@/context/PlanContext";
 type Tab = "plan" | "saved";
 
 export default function MyPlanPage() {
-  const {
-    plan,
-    saved,
-    removeFromPlan,
-    removeSaved,
-    markAsDone,
-    isCompleted,
-  } = usePlan();
+  const { plan, saved, removeFromPlan, removeSaved, markAsDone, isCompleted } =
+    usePlan();
 
   const [activeTab, setActiveTab] = useState<Tab>("plan");
   const [loading, setLoading] = useState(true);
@@ -30,12 +24,12 @@ export default function MyPlanPage() {
 
   const totalMinutes = plan.reduce(
     (total, workout) => total + workout.duration,
-    0
+    0,
   );
 
   const totalCalories = plan.reduce(
     (total, workout) => total + workout.caloriesBurned,
-    0
+    0,
   );
 
   const handleRemove = (id: number, name: string) => {
@@ -151,7 +145,7 @@ export default function MyPlanPage() {
 
               <Link
                 href="/"
-                className="mt-6 rounded-full bg-[#CCFF00] px-6 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] text-[#0b0d0c] transition hover:bg-[#d6ff33]"
+                className="mt-6 rounded-full bg-[#CCFF00] px-6 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] !text-black transition hover:bg-[#d6ff33]"
               >
                 Go to Workouts
               </Link>
@@ -166,9 +160,7 @@ export default function MyPlanPage() {
                   <article
                     key={workout.id}
                     className={`overflow-hidden rounded-2xl border bg-[#111411] ${
-                      done
-                        ? "border-[#CCFF00]/40"
-                        : "border-[#242824]"
+                      done ? "border-[#CCFF00]/40" : "border-[#242824]"
                     }`}
                   >
                     <div className="flex min-h-[180px] flex-col sm:flex-row sm:items-center">
@@ -229,10 +221,7 @@ export default function MyPlanPage() {
                               <button
                                 type="button"
                                 onClick={() =>
-                                  handleMarkDone(
-                                    workout.id,
-                                    workout.name
-                                  )
+                                  handleMarkDone(workout.id, workout.name)
                                 }
                                 disabled={done}
                                 className={`rounded-full px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-[0.08em] transition ${
@@ -241,19 +230,14 @@ export default function MyPlanPage() {
                                     : "bg-[#CCFF00] text-[#0b0d0c] hover:bg-[#d6ff33]"
                                 }`}
                               >
-                                <span className="mr-1 text-[#CCFF00]">
-                                  ✓
-                                </span>
+                                <span className="mr-1 text-[#CCFF00]">✓</span>
                                 {done ? "Done" : "Mark as Done"}
                               </button>
 
                               <button
                                 type="button"
                                 onClick={() =>
-                                  handleRemove(
-                                    workout.id,
-                                    workout.name
-                                  )
+                                  handleRemove(workout.id, workout.name)
                                 }
                                 aria-label={`Remove ${workout.name}`}
                                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#CCFF00] transition hover:border-red-400 hover:text-red-400"
@@ -267,10 +251,7 @@ export default function MyPlanPage() {
                             <button
                               type="button"
                               onClick={() =>
-                                handleRemoveSaved(
-                                  workout.id,
-                                  workout.name
-                                )
+                                handleRemoveSaved(workout.id, workout.name)
                               }
                               aria-label={`Remove ${workout.name} from saved workouts`}
                               className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#CCFF00] transition hover:border-red-400 hover:text-red-400"
