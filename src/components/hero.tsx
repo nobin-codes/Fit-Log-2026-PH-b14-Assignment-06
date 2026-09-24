@@ -35,7 +35,6 @@ export default function Hero() {
             lg:py-0
           "
         >
-         
           <div className="relative z-10 w-full lg:w-[58%]">
             <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#c2f800] sm:text-[11px]">
               Workout Library
@@ -89,7 +88,6 @@ export default function Hero() {
             </div>
           </div>
 
-          
           <div
             className="
               relative

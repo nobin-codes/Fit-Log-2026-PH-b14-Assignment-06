@@ -8,16 +8,8 @@ interface WorkoutActionsProps {
   workout: Workout;
 }
 
-export default function WorkoutActions({
-  workout,
-}: WorkoutActionsProps) {
-  const {
-    plan,
-    addToPlan,
-    addToSaved,
-    isInPlan,
-    isSaved,
-  } = usePlan();
+export default function WorkoutActions({ workout }: WorkoutActionsProps) {
+  const { plan, addToPlan, addToSaved, isInPlan, isSaved } = usePlan();
 
   const alreadyInPlan = isInPlan(workout.id);
   const alreadySaved = isSaved(workout.id);
@@ -56,7 +48,6 @@ export default function WorkoutActions({
 
   return (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-      
       <button
         type="button"
         onClick={handleAddToPlan}
@@ -71,7 +62,6 @@ export default function WorkoutActions({
         {alreadyInPlan ? "In Today's Plan" : "Add to Today's Plan"}
       </button>
 
-      
       <button
         type="button"
         onClick={handleSave}
