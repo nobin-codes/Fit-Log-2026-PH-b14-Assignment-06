@@ -56,7 +56,7 @@ export default function WorkoutActions({
 
   return (
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-      {/* Add to Today's Plan */}
+      
       <button
         type="button"
         onClick={handleAddToPlan}
@@ -71,7 +71,7 @@ export default function WorkoutActions({
         {alreadyInPlan ? "In Today's Plan" : "Add to Today's Plan"}
       </button>
 
-      {/* Save for Later */}
+      
       <button
         type="button"
         onClick={handleSave}
