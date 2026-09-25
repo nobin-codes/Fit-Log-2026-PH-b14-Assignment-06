@@ -62,7 +62,7 @@ export default function Navbar() {
         </nav>
 
         {/* Plan & Saved */}
-        <div className="flex items-center gap-3 justify-self-end sm:gap-5">
+        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-3 sm:static sm:translate-x-0 sm:gap-5 sm:justify-self-end">
           <Link
             href="/my-plan"
             className="flex items-center gap-1.5 text-[11px] font-medium text-[#a5a9b0] transition hover:text-white sm:gap-2 sm:text-[12px]"
@@ -91,7 +91,7 @@ export default function Navbar() {
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
+          className="absolute right-0 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:static"
         >
           <span className="text-xl leading-none">
             {menuOpen ? "×" : "☰"}
