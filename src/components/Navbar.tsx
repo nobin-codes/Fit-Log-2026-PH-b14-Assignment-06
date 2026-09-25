@@ -53,7 +53,7 @@ export default function Navbar() {
           </Link>{" "}
         </nav>{" "}
         {/* Plan & Saved */}{" "}
-        <div className="flex min-w-0 items-center justify-end gap-2 overflow-hidden sm:gap-5">
+        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-4 sm:static sm:translate-x-0 sm:justify-self-end sm:gap-5">
           {" "}
           <Link
             href="/my-plan"
