@@ -16,18 +16,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
-      <div className="container-fitlog relative grid h-[70px] grid-cols-[1fr_auto_1fr] items-center">
-        <button
-          type="button"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle navigation menu"
-          className="absolute right-5 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
-        >
-          <span className="text-xl leading-none">
-            {menuOpen ? "×" : "☰"}
-          </span>
-        </button>
+      <div className="container-fitlog relative flex h-[70px] items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
 
+        {/* Logo */}
         <div className="justify-self-start">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -45,6 +36,7 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Workout / My Plan */}
         <nav className="hidden items-center gap-2 sm:flex">
           <Link
             href="/"
@@ -69,11 +61,11 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Plan & Saved - desktop only */}
-        <div className="hidden items-center justify-self-end gap-5 sm:flex">
+        {/* Plan & Saved */}
+        <div className="flex items-center gap-3 justify-self-end sm:gap-5">
           <Link
             href="/my-plan"
-            className="flex items-center gap-2 text-[12px] font-medium text-[#a5a9b0] transition hover:text-white"
+            className="flex items-center gap-1.5 text-[11px] font-medium text-[#a5a9b0] transition hover:text-white sm:gap-2 sm:text-[12px]"
           >
             <span>Plan</span>
 
@@ -84,7 +76,7 @@ export default function Navbar() {
 
           <Link
             href="/my-plan"
-            className="flex items-center gap-2 text-[12px] font-medium text-[#a5a9b0] transition hover:text-white"
+            className="flex items-center gap-1.5 text-[11px] font-medium text-[#a5a9b0] transition hover:text-white sm:gap-2 sm:text-[12px]"
           >
             <span>Saved</span>
 
@@ -93,6 +85,18 @@ export default function Navbar() {
             </span>
           </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          className="absolute right-0 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
+        >
+          <span className="text-xl leading-none">
+            {menuOpen ? "×" : "☰"}
+          </span>
+        </button>
       </div>
 
       {menuOpen && (
