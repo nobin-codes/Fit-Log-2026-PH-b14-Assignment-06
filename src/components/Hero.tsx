@@ -6,10 +6,8 @@ export default function Hero() {
     <section className="bg-[#0b0d0f] px-4 pb-8 pt-8 sm:px-6 sm:pt-10 lg:pt-12">
       <div
         className="
+          container-fitlog
           relative
-          mx-auto
-          w-full
-          max-w-[1218px]
           overflow-hidden
           rounded-[16px]
           border
@@ -67,21 +65,21 @@ export default function Hero() {
               <Link
                 href="#library"
                 className="
-      inline-flex
-      h-10
-      items-center
-      justify-center
-      rounded-[6px]
-      bg-[#c2f800]
-      px-6
-      text-[10px]
-      font-extrabold
-      uppercase
-      tracking-[0.02em]
-      !text-[#0b0d0f]
-      transition
-      hover:bg-[#d0ff26]
-    "
+                  inline-flex
+                  h-10
+                  items-center
+                  justify-center
+                  rounded-[6px]
+                  bg-[#c2f800]
+                  px-6
+                  text-[10px]
+                  font-extrabold
+                  uppercase
+                  tracking-[0.02em]
+                  !text-[#0b0d0f]
+                  transition
+                  hover:bg-[#d0ff26]
+                "
               >
                 Browse Workouts
               </Link>
@@ -114,12 +112,7 @@ export default function Hero() {
               width={500}
               height={500}
               priority
-              className="
-                h-full
-                w-full
-                object-contain
-                object-bottom
-              "
+              className="h-full w-full object-contain object-bottom"
             />
           </div>
         </div>

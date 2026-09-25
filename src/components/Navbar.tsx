@@ -16,14 +16,16 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
-      <div className="relative mx-auto grid h-[70px] w-full max-w-[1218px] grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6">
+      <div className="container-fitlog relative grid h-[70px] grid-cols-[1fr_auto_1fr] items-center">
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
           className="absolute right-5 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
         >
-          <span className="text-xl leading-none">{menuOpen ? "×" : "☰"}</span>
+          <span className="text-xl leading-none">
+            {menuOpen ? "×" : "☰"}
+          </span>
         </button>
 
         <div className="justify-self-start">
@@ -47,7 +49,9 @@ export default function Navbar() {
           <Link
             href="/"
             className={`rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] ${
-              workoutActive ? "bg-[#1A2312] !text-[#C2F800]" : "!text-[#a0a59f]"
+              workoutActive
+                ? "bg-[#1A2312] !text-[#C2F800]"
+                : "!text-[#a0a59f]"
             }`}
           >
             Workout
@@ -56,7 +60,9 @@ export default function Navbar() {
           <Link
             href="/my-plan"
             className={`rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.08em] ${
-              myPlanActive ? "bg-[#1A2312] !text-[#C2F800]" : "!text-[#a0a59f]"
+              myPlanActive
+                ? "bg-[#1A2312] !text-[#C2F800]"
+                : "!text-[#a0a59f]"
             }`}
           >
             My Plan

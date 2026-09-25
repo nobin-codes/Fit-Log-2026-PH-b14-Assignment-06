@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { usePlan } from "@/context/PlanContext";
 
@@ -13,8 +13,8 @@ export default function MyPlanPage() {
     usePlan();
 
   const [activeTab, setActiveTab] = useState<Tab>("plan");
-  const [sortBy, setSortBy] = useState<SortOption>("duration");
   const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState<SortOption>("duration");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,15 +24,37 @@ export default function MyPlanPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const totalMinutes = plan.reduce(
-    (total, workout) => total + workout.duration,
-    0,
-  );
+  const currentWorkouts = activeTab === "plan" ? plan : saved;
 
-  const totalCalories = plan.reduce(
-    (total, workout) => total + workout.caloriesBurned,
-    0,
-  );
+  const sortedWorkouts = useMemo(() => {
+    const sorted = [...currentWorkouts];
+
+    if (sortBy === "duration") {
+      sorted.sort((a, b) => a.duration - b.duration);
+    }
+
+    if (sortBy === "calories") {
+      sorted.sort((a, b) => a.caloriesBurned - b.caloriesBurned);
+    }
+
+    if (sortBy === "rating") {
+      sorted.sort((a, b) => b.rating - a.rating);
+    }
+
+    return sorted;
+  }, [currentWorkouts, sortBy]);
+
+  const displayedWorkouts = activeTab === "plan" ? plan : saved;
+
+  const totalExercises = displayedWorkouts.length;
+
+  const totalMinutes = displayedWorkouts.reduce((total, workout) => {
+    return total + Number(workout.duration);
+  }, 0);
+
+  const totalCalories = displayedWorkouts.reduce((total, workout) => {
+    return total + Number(workout.caloriesBurned);
+  }, 0);
 
   const handleRemove = (id: number, name: string) => {
     removeFromPlan(id);
@@ -49,24 +71,9 @@ export default function MyPlanPage() {
     toast.success(`${name} marked as done.`);
   };
 
-  const currentWorkouts = activeTab === "plan" ? plan : saved;
-
-  const sortedWorkouts = [...currentWorkouts].sort((a, b) => {
-    if (sortBy === "duration") {
-      return a.duration - b.duration;
-    }
-
-    if (sortBy === "calories") {
-      return a.caloriesBurned - b.caloriesBurned;
-    }
-
-    return a.rating - b.rating;
-  });
-
   return (
     <main className="min-h-screen bg-[#0b0d0c] px-4 py-10 text-white sm:px-5 sm:py-12">
       <div className="mx-auto w-full max-w-[1180px]">
-       
         <section className="border-b border-[#242824] pb-7 sm:pb-8">
           <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#ccff00]">
             FITLOG / YOUR WORKOUTS
@@ -81,7 +88,6 @@ export default function MyPlanPage() {
           </p>
         </section>
 
-       
         <section className="mt-7 overflow-hidden border border-[#242824] bg-[#111411] sm:mt-8">
           <div className="grid grid-cols-3">
             <div className="border-r border-[#242824] px-3 py-4 sm:px-5 sm:py-5">
@@ -90,7 +96,7 @@ export default function MyPlanPage() {
               </p>
 
               <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
-                {plan.length}
+                {totalExercises}
               </p>
             </div>
 
@@ -116,8 +122,7 @@ export default function MyPlanPage() {
           </div>
         </section>
 
-        <section className="mt-7 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:items-center sm:justify-between">
-          
+        <section className="mt-7 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:items-end sm:justify-between">
           <div className="inline-flex w-fit items-center rounded-lg border border-[#242824] bg-[#111411] p-1">
             <button
               type="button"
@@ -144,30 +149,36 @@ export default function MyPlanPage() {
             </button>
           </div>
 
-          
-          <label className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.05em] text-[#8a9089]">
-            <span>Sort By</span>
+          <div className="relative w-full sm:w-[190px]">
+            <label
+              htmlFor="sort-my-plan"
+              className="mb-2 block text-[10px] font-bold uppercase tracking-[0.1em] text-[#777d76]"
+            >
+              Sort By
+            </label>
 
-            <div className="relative">
-              <select
-                value={sortBy}
-                onChange={(event) =>
-                  setSortBy(event.target.value as SortOption)
-                }
-                className="h-9 min-w-[120px] appearance-none rounded-md border border-[#30352f] bg-[#111411] py-2 pl-3 pr-9 text-[10px] font-semibold text-white outline-none transition hover:border-[#4a5148] focus:border-[#ccff00]"
-              >
-                <option value="duration">Duration</option>
-                <option value="calories">Calories</option>
-                <option value="rating">Rating</option>
-              </select>
+            <select
+              id="sort-my-plan"
+              value={sortBy}
+              onChange={(event) =>
+                setSortBy(event.target.value as SortOption)
+              }
+              className="w-full appearance-none rounded-full border border-[#3a4039] bg-[#111411] px-4 py-3 pr-10 text-xs font-bold uppercase tracking-[0.06em] text-white outline-none transition focus:border-[#ccff00]"
+            >
+              <option value="duration">Duration</option>
+              <option value="calories">Calories</option>
+              <option value="rating">Rating</option>
+            </select>
 
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-[#8a9089]">
-                ▼
-              </span>
-            </div>
-          </label>
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-3 right-4 text-sm text-[#ccff00]"
+            >
+              ↓
+            </span>
+          </div>
         </section>
-        
+
         <section className="mt-7 sm:mt-8">
           {loading ? (
             <div className="flex min-h-[300px] items-center justify-center border border-[#242824] bg-[#111411]">
@@ -212,7 +223,6 @@ export default function MyPlanPage() {
                     }`}
                   >
                     <div className="flex min-h-[150px] flex-col sm:flex-row sm:items-center">
-                     
                       <div className="shrink-0 sm:h-[150px] sm:w-[190px]">
                         <img
                           src={workout.image}
@@ -221,9 +231,7 @@ export default function MyPlanPage() {
                         />
                       </div>
 
-                      
                       <div className="flex flex-1 flex-col justify-between gap-5 p-4 sm:flex-row sm:items-center sm:p-5">
-                        
                         <div className="min-w-0">
                           <h2
                             className={`text-xl font-extrabold uppercase tracking-[-0.03em] ${
@@ -255,7 +263,6 @@ export default function MyPlanPage() {
                           </div>
                         </div>
 
-                       
                         <div className="flex shrink-0 flex-wrap items-center gap-2">
                           <Link
                             href={`/workouts/${workout.id}`}

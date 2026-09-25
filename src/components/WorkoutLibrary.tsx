@@ -48,11 +48,8 @@ export default function WorkoutLibrary() {
   }, [workouts, sortBy]);
 
   return (
-    <section
-      id="library"
-      className="bg-[#0b0d0c] px-5 py-16 sm:py-20"
-    >
-      <div className="mx-auto w-full max-w-[1180px]">
+    <section id="library" className="bg-[#0b0d0c] py-16 sm:py-20">
+      <div className="container-fitlog">
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#B8E600]">
@@ -110,9 +107,7 @@ export default function WorkoutLibrary() {
 
         {!loading && error && (
           <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-[#242824] bg-[#111411]">
-            <p className="text-sm font-bold text-red-400">
-              {error}
-            </p>
+            <p className="text-sm font-bold text-red-400">{error}</p>
           </div>
         )}
 
@@ -127,10 +122,7 @@ export default function WorkoutLibrary() {
         {!loading && !error && sortedWorkouts.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {sortedWorkouts.map((workout) => (
-              <WorkoutCard
-                key={workout.id}
-                workout={workout}
-              />
+              <WorkoutCard key={workout.id} workout={workout} />
             ))}
           </div>
         )}

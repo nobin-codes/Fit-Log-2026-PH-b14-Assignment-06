@@ -36,7 +36,7 @@ export default async function WorkoutDetailsPage({
     <main className="min-h-screen bg-[#0b0d0c] px-5 py-12 text-white">
       <div className="mx-auto w-full max-w-[1180px]">
         <div className="grid gap-10 lg:grid-cols-2">
-          {/* Left Side - Image */}
+         
           <div className="overflow-hidden rounded-2xl border border-[#242824] bg-[#111411]">
             <img
               src={workout.image}
@@ -45,19 +45,19 @@ export default async function WorkoutDetailsPage({
             />
           </div>
 
-          {/* Right Side - Details */}
+          
           <div>
-            {/* Title */}
+           
             <h1 className="text-4xl font-extrabold uppercase leading-tight tracking-[-0.04em] sm:text-5xl">
               {workout.name}
             </h1>
 
-            {/* Description */}
+            
             <p className="mt-5 text-base leading-7 text-[#9da39c]">
               {workout.description}
             </p>
 
-            {/* Category Tags */}
+           
             <div className="mt-5 flex flex-wrap gap-2">
               {workout.muscleGroups.map((muscle) => (
                 <span
@@ -69,7 +69,7 @@ export default async function WorkoutDetailsPage({
               ))}
             </div>
 
-            {/* Key Specs */}
+         
             <div className="mt-8 overflow-hidden rounded-2xl border border-[#242824] bg-[#111411]">
               <div className="divide-y divide-[#242824]">
                 <div className="flex items-center justify-between gap-5 px-5 py-4">
@@ -144,7 +144,7 @@ export default async function WorkoutDetailsPage({
               </div>
             </div>
 
-            {/* Instructions */}
+            
             <div className="mt-8">
               <h2 className="text-sm font-extrabold uppercase tracking-[0.08em]">
                 Instructions
@@ -166,7 +166,7 @@ export default async function WorkoutDetailsPage({
               </ol>
             </div>
 
-            {/* CTA Buttons */}
+           
             <WorkoutActions workout={workout} />
           </div>
         </div>

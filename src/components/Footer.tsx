@@ -3,9 +3,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#242824] bg-[#0b0d0c] px-4 py-8 sm:px-6">
-      <div className="mx-auto flex w-full max-w-[1218px] items-center justify-between gap-6">
-        {/* Logo + Name */}
+    <footer className="border-t border-[#242824] bg-[#0b0d0c] py-8">
+      <div className="container-fitlog flex items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
@@ -20,7 +19,6 @@ export default function Footer() {
           </span>
         </Link>
 
-        {/* Copyright */}
         <p className="text-right text-[11px] text-[#858b84]">
           © 2026 FitLog — Workout Library. Train hard, log honest.
         </p>

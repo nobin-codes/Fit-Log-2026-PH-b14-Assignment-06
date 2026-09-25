@@ -71,7 +71,10 @@ export function PlanProvider({ children }: { children: ReactNode }) {
 
     localStorage.setItem("fitlog-plan", JSON.stringify(plan));
     localStorage.setItem("fitlog-saved", JSON.stringify(saved));
-    localStorage.setItem("fitlog-completed", JSON.stringify(completed));
+    localStorage.setItem(
+      "fitlog-completed",
+      JSON.stringify(completed)
+    );
   }, [plan, saved, completed, hydrated]);
 
   const addToPlan = (workout: Workout) => {

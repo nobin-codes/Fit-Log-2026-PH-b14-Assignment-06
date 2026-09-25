@@ -37,3 +37,28 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+
+
+.container-fitlog {
+  width: 100%;
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 640px) {
+  .container-fitlog {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-fitlog {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
