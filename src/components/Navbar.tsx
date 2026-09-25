@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
-      <div className="container-fitlog relative grid h-[70px] grid-cols-[auto_1fr_auto_auto] items-center gap-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-0">
+      <div className="container-fitlog relative grid h-[70px] grid-cols-[auto_1fr_auto] items-center gap-2 sm:grid-cols-[1fr_auto_1fr] sm:gap-0">
 
         {/* Logo */}
         <div className="justify-self-start">
@@ -62,7 +62,7 @@ export default function Navbar() {
         </nav>
 
         {/* Plan & Saved */}
-        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-3 sm:static sm:translate-x-0 sm:gap-5 sm:justify-self-end">
+        <div className="flex items-center justify-center gap-3 justify-self-center sm:gap-5 sm:justify-self-end">
           <Link
             href="/my-plan"
             className="flex items-center gap-1.5 text-[11px] font-medium text-[#a5a9b0] transition hover:text-white sm:gap-2 sm:text-[12px]"
@@ -91,7 +91,7 @@ export default function Navbar() {
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
-          className="absolute right-0 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:static"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] justify-self-end sm:hidden"
         >
           <span className="text-xl leading-none">
             {menuOpen ? "×" : "☰"}
