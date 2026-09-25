@@ -69,7 +69,8 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center justify-self-end gap-5">
+        {/* Plan & Saved - desktop only */}
+        <div className="hidden items-center justify-self-end gap-5 sm:flex">
           <Link
             href="/my-plan"
             className="flex items-center gap-2 text-[12px] font-medium text-[#a5a9b0] transition hover:text-white"
