@@ -18,7 +18,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
       <div className="container-fitlog relative h-[70px]">
 
-        {/* Logo */}
+        
         <div className="absolute left-0 top-1/2 -translate-y-1/2 sm:static sm:flex sm:h-full sm:translate-y-0 sm:items-center">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -36,7 +36,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
+       
         <nav className="hidden items-center gap-2 sm:absolute sm:left-1/2 sm:top-1/2 sm:flex sm:-translate-x-1/2 sm:-translate-y-1/2">
           <Link
             href="/"
@@ -61,7 +61,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Desktop Plan & Saved */}
+       
         <div className="hidden sm:absolute sm:right-0 sm:top-1/2 sm:flex sm:-translate-y-1/2 sm:items-center sm:gap-5">
           <Link
             href="/my-plan"
@@ -84,7 +84,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Plan & Saved */}
+        
         <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 sm:hidden">
           <Link
             href="/my-plan"
@@ -107,7 +107,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -120,7 +120,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+     
       {menuOpen && (
         <nav className="border-t border-[#242824] px-5 py-3 sm:hidden">
           <div className="flex flex-col gap-1">
