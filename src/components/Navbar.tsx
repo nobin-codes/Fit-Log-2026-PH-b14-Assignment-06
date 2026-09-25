@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#242824] bg-[#0b0d0c]">
-      <div className="container-fitlog relative flex h-[70px] items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
+      <div className="container-fitlog relative grid h-[70px] grid-cols-[auto_1fr_auto_auto] items-center gap-3 sm:grid-cols-[1fr_auto_1fr] sm:gap-0">
 
         {/* Logo */}
         <div className="justify-self-start">
@@ -36,7 +36,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Workout / My Plan */}
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-2 sm:flex">
           <Link
             href="/"
@@ -91,7 +91,7 @@ export default function Navbar() {
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation menu"
-          className="absolute right-0 flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#343840] text-[#a5a9b0] sm:hidden"
         >
           <span className="text-xl leading-none">
             {menuOpen ? "×" : "☰"}
@@ -99,6 +99,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {menuOpen && (
         <nav className="border-t border-[#242824] px-5 py-3 sm:hidden">
           <div className="flex flex-col gap-1">
