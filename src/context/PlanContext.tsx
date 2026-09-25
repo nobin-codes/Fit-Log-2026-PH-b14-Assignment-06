@@ -37,27 +37,31 @@ export function PlanProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    try {
-      const storedPlan = localStorage.getItem("fitlog-plan");
-      const storedSaved = localStorage.getItem("fitlog-saved");
-      const storedCompleted = localStorage.getItem("fitlog-completed");
+    const timer = setTimeout(() => {
+      try {
+        const storedPlan = localStorage.getItem("fitlog-plan");
+        const storedSaved = localStorage.getItem("fitlog-saved");
+        const storedCompleted = localStorage.getItem("fitlog-completed");
 
-      if (storedPlan) {
-        setPlan(JSON.parse(storedPlan));
-      }
+        if (storedPlan) {
+          setPlan(JSON.parse(storedPlan));
+        }
 
-      if (storedSaved) {
-        setSaved(JSON.parse(storedSaved));
-      }
+        if (storedSaved) {
+          setSaved(JSON.parse(storedSaved));
+        }
 
-      if (storedCompleted) {
-        setCompleted(JSON.parse(storedCompleted));
+        if (storedCompleted) {
+          setCompleted(JSON.parse(storedCompleted));
+        }
+      } catch (error) {
+        console.error("Failed to load FitLog data:", error);
+      } finally {
+        setHydrated(true);
       }
-    } catch (error) {
-      console.error("Failed to load FitLog data:", error);
-    } finally {
-      setHydrated(true);
-    }
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -96,17 +100,17 @@ export function PlanProvider({ children }: { children: ReactNode }) {
 
   const removeFromPlan = (id: number) => {
     setPlan((currentPlan) =>
-      currentPlan.filter((workout) => workout.id !== id)
+      currentPlan.filter((workout) => workout.id !== id),
     );
 
     setCompleted((currentCompleted) =>
-      currentCompleted.filter((completedId) => completedId !== id)
+      currentCompleted.filter((completedId) => completedId !== id),
     );
   };
 
   const removeSaved = (id: number) => {
     setSaved((currentSaved) =>
-      currentSaved.filter((workout) => workout.id !== id)
+      currentSaved.filter((workout) => workout.id !== id),
     );
   };
 

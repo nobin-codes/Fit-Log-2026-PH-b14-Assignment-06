@@ -6,12 +6,14 @@ import { toast } from "react-toastify";
 import { usePlan } from "@/context/PlanContext";
 
 type Tab = "plan" | "saved";
+type SortOption = "duration" | "calories" | "rating";
 
 export default function MyPlanPage() {
   const { plan, saved, removeFromPlan, removeSaved, markAsDone, isCompleted } =
     usePlan();
 
   const [activeTab, setActiveTab] = useState<Tab>("plan");
+  const [sortBy, setSortBy] = useState<SortOption>("duration");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,11 +51,27 @@ export default function MyPlanPage() {
 
   const currentWorkouts = activeTab === "plan" ? plan : saved;
 
+  const sortedWorkouts = [...currentWorkouts].sort((a, b) => {
+    if (sortBy === "duration") {
+      return a.duration - b.duration;
+    }
+
+    if (sortBy === "calories") {
+      return a.caloriesBurned - b.caloriesBurned;
+    }
+
+    return a.rating - b.rating;
+  });
+
   return (
-    <main className="min-h-screen bg-[#0b0d0c] px-5 py-12 text-white">
+    <main className="min-h-screen bg-[#0b0d0c] px-4 py-10 text-white sm:px-5 sm:py-12">
       <div className="mx-auto w-full max-w-[1180px]">
-        {/* Header */}
-        <div className="border-b border-[#242824] pb-8">
+       
+        <section className="border-b border-[#242824] pb-7 sm:pb-8">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#ccff00]">
+            FITLOG / YOUR WORKOUTS
+          </p>
+
           <h1 className="text-4xl font-extrabold uppercase tracking-[-0.04em] sm:text-5xl">
             My Plan
           </h1>
@@ -61,80 +79,108 @@ export default function MyPlanPage() {
           <p className="mt-3 max-w-[520px] text-sm leading-6 text-[#8f958e]">
             Cap of five lifts for today. Finish them, then load more.
           </p>
-        </div>
+        </section>
 
-        {/* Metrics */}
-        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-[#242824] bg-[#111411] p-5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#777d76]">
-              Exercises
-            </p>
+       
+        <section className="mt-7 overflow-hidden border border-[#242824] bg-[#111411] sm:mt-8">
+          <div className="grid grid-cols-3">
+            <div className="border-r border-[#242824] px-3 py-4 sm:px-5 sm:py-5">
+              <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#777d76]">
+                Exercises
+              </p>
 
-            <p className="mt-3 text-3xl font-extrabold text-white">
-              {plan.length}
-            </p>
+              <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
+                {plan.length}
+              </p>
+            </div>
+
+            <div className="border-r border-[#242824] px-3 py-4 sm:px-5 sm:py-5">
+              <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#777d76]">
+                Minutes
+              </p>
+
+              <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
+                {totalMinutes}
+              </p>
+            </div>
+
+            <div className="px-3 py-4 sm:px-5 sm:py-5">
+              <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#777d76]">
+                Calories
+              </p>
+
+              <p className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
+                {totalCalories}
+              </p>
+            </div>
           </div>
+        </section>
 
-          <div className="rounded-2xl border border-[#242824] bg-[#111411] p-5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#777d76]">
-              Minutes
-            </p>
-
-            <p className="mt-3 text-3xl font-extrabold text-white">
-              {totalMinutes}
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#242824] bg-[#111411] p-5">
-            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#777d76]">
-              Calories
-            </p>
-
-            <p className="mt-3 text-3xl font-extrabold text-white">
-              {totalCalories}
-            </p>
-          </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="mt-8 border-b border-[#242824]">
-          <div className="flex items-center justify-start gap-2">
+        <section className="mt-7 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:items-center sm:justify-between">
+          
+          <div className="inline-flex w-fit items-center rounded-lg border border-[#242824] bg-[#111411] p-1">
             <button
               type="button"
               onClick={() => setActiveTab("plan")}
-              className={`rounded-t-xl px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] transition ${
+              className={`rounded-md px-4 py-2 text-[10px] font-bold uppercase tracking-[0.04em] transition ${
                 activeTab === "plan"
-                  ? "bg-[#B8E600] text-[#0b0d0c]"
-                  : "text-[#858b84] hover:text-white"
+                  ? "bg-[#1b2118] text-white"
+                  : "text-[#777d76] hover:text-white"
               }`}
             >
-              Today's Plan
+              Today&apos;s Plan
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab("saved")}
-              className={`rounded-t-xl px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] transition ${
+              className={`rounded-md px-4 py-2 text-[10px] font-bold uppercase tracking-[0.04em] transition ${
                 activeTab === "saved"
-                  ? "bg-[#B8E600] text-[#0b0d0c]"
-                  : "text-[#858b84] hover:text-white"
+                  ? "bg-[#1b2118] text-white"
+                  : "text-[#777d76] hover:text-white"
               }`}
             >
               Saved
             </button>
           </div>
-        </div>
 
-        {/* Workout List */}
-        <div className="mt-8">
-          {loading ? (
-            <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-[#242824] bg-[#111411]">
-              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#CCFF00]">
-                Loading workouts…
-              </p>
+          
+          <label className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.05em] text-[#8a9089]">
+            <span>Sort By</span>
+
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(event) =>
+                  setSortBy(event.target.value as SortOption)
+                }
+                className="h-9 min-w-[120px] appearance-none rounded-md border border-[#30352f] bg-[#111411] py-2 pl-3 pr-9 text-[10px] font-semibold text-white outline-none transition hover:border-[#4a5148] focus:border-[#ccff00]"
+              >
+                <option value="duration">Duration</option>
+                <option value="calories">Calories</option>
+                <option value="rating">Rating</option>
+              </select>
+
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-[#8a9089]">
+                ▼
+              </span>
             </div>
-          ) : currentWorkouts.length === 0 ? (
-            <div className="flex min-h-[420px] flex-col items-center justify-center rounded-2xl border border-[#242824] bg-[#111411] px-5 text-center">
+          </label>
+        </section>
+        
+        <section className="mt-7 sm:mt-8">
+          {loading ? (
+            <div className="flex min-h-[300px] items-center justify-center border border-[#242824] bg-[#111411]">
+              <div className="text-center">
+                <div className="mx-auto mb-4 h-7 w-7 animate-spin rounded-full border-2 border-[#30352f] border-t-[#ccff00]" />
+
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#ccff00]">
+                  Loading workouts…
+                </p>
+              </div>
+            </div>
+          ) : sortedWorkouts.length === 0 ? (
+            <div className="flex min-h-[420px] flex-col items-center justify-center border border-[#242824] bg-[#111411] px-5 text-center">
               <p className="text-xl font-extrabold uppercase text-white">
                 Nothing Here Yet
               </p>
@@ -145,27 +191,29 @@ export default function MyPlanPage() {
 
               <Link
                 href="/"
-                className="mt-6 rounded-full bg-[#CCFF00] px-6 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] !text-black transition hover:bg-[#d6ff33]"
+                className="mt-6 rounded-full bg-[#ccff00] px-6 py-3 text-[10px] font-extrabold uppercase tracking-[0.08em] !text-black transition hover:bg-[#d6ff33]"
               >
                 Go to Workouts
               </Link>
             </div>
           ) : (
             <div className="space-y-4">
-              {currentWorkouts.map((workout) => {
+              {sortedWorkouts.map((workout) => {
                 const done =
                   activeTab === "plan" ? isCompleted(workout.id) : false;
 
                 return (
                   <article
                     key={workout.id}
-                    className={`overflow-hidden rounded-2xl border bg-[#111411] ${
-                      done ? "border-[#CCFF00]/40" : "border-[#242824]"
+                    className={`overflow-hidden border bg-[#111411] transition ${
+                      done
+                        ? "border-[#ccff00]/40"
+                        : "border-[#242824] hover:border-[#3a4039]"
                     }`}
                   >
-                    <div className="flex min-h-[180px] flex-col sm:flex-row sm:items-center">
-                      {/* Thumbnail */}
-                      <div className="shrink-0 sm:h-[180px] sm:w-[220px]">
+                    <div className="flex min-h-[150px] flex-col sm:flex-row sm:items-center">
+                     
+                      <div className="shrink-0 sm:h-[150px] sm:w-[190px]">
                         <img
                           src={workout.image}
                           alt={workout.name}
@@ -173,13 +221,13 @@ export default function MyPlanPage() {
                         />
                       </div>
 
-                      {/* Workout Info */}
-                      <div className="flex flex-1 items-center justify-between gap-6 p-5">
-                        {/* Text + Stats */}
+                      
+                      <div className="flex flex-1 flex-col justify-between gap-5 p-4 sm:flex-row sm:items-center sm:p-5">
+                        
                         <div className="min-w-0">
                           <h2
                             className={`text-xl font-extrabold uppercase tracking-[-0.03em] ${
-                              done ? "text-[#CCFF00]" : "text-white"
+                              done ? "text-[#ccff00]" : "text-white"
                             }`}
                           >
                             {workout.name}
@@ -189,29 +237,29 @@ export default function MyPlanPage() {
                             {workout.equipment}
                           </p>
 
-                          <div className="mt-4 flex flex-wrap gap-4 text-xs text-[#9da39c]">
+                          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-[#9da39c]">
                             <span>
-                              <span className="text-[#CCFF00]">◷</span>{" "}
+                              <span className="text-[#ccff00]">◷</span>{" "}
                               {workout.duration} min
                             </span>
 
                             <span>
-                              <span className="text-[#CCFF00]">🔥</span>{" "}
+                              <span className="text-[#ccff00]">🔥</span>{" "}
                               {workout.caloriesBurned} kcal
                             </span>
 
                             <span>
-                              <span className="text-[#CCFF00]">⭐</span>{" "}
+                              <span className="text-[#ccff00]">⭐</span>{" "}
                               {workout.rating}
                             </span>
                           </div>
                         </div>
 
-                        {/* Buttons */}
-                        <div className="flex shrink-0 items-center justify-end gap-2">
+                       
+                        <div className="flex shrink-0 flex-wrap items-center gap-2">
                           <Link
                             href={`/workouts/${workout.id}`}
-                            className="rounded-full border border-[#3a4039] px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white transition hover:border-[#CCFF00] hover:text-[#CCFF00]"
+                            className="rounded-full border border-[#3a4039] px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white transition hover:border-[#ccff00] hover:text-[#ccff00]"
                           >
                             View Details
                           </Link>
@@ -226,11 +274,11 @@ export default function MyPlanPage() {
                                 disabled={done}
                                 className={`rounded-full px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-[0.08em] transition ${
                                   done
-                                    ? "cursor-default bg-[#CCFF00]/20 text-[#CCFF00]"
-                                    : "bg-[#CCFF00] text-[#0b0d0c] hover:bg-[#d6ff33]"
+                                    ? "cursor-default bg-[#ccff00]/20 text-[#ccff00]"
+                                    : "bg-[#ccff00] text-[#0b0d0c] hover:bg-[#d6ff33]"
                                 }`}
                               >
-                                <span className="mr-1 text-[#CCFF00]">✓</span>
+                                <span className="mr-1">✓</span>
                                 {done ? "Done" : "Mark as Done"}
                               </button>
 
@@ -240,7 +288,7 @@ export default function MyPlanPage() {
                                   handleRemove(workout.id, workout.name)
                                 }
                                 aria-label={`Remove ${workout.name}`}
-                                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#CCFF00] transition hover:border-red-400 hover:text-red-400"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#ccff00] transition hover:border-red-400 hover:text-red-400"
                               >
                                 ×
                               </button>
@@ -254,7 +302,7 @@ export default function MyPlanPage() {
                                 handleRemoveSaved(workout.id, workout.name)
                               }
                               aria-label={`Remove ${workout.name} from saved workouts`}
-                              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#CCFF00] transition hover:border-red-400 hover:text-red-400"
+                              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#3a4039] text-lg text-[#ccff00] transition hover:border-red-400 hover:text-red-400"
                             >
                               ×
                             </button>
@@ -267,7 +315,7 @@ export default function MyPlanPage() {
               })}
             </div>
           )}
-        </div>
+        </section>
       </div>
     </main>
   );
