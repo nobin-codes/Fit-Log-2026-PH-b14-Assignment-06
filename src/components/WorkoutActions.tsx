@@ -17,7 +17,7 @@ export default function WorkoutActions({ workout }: WorkoutActionsProps) {
 
   const handleAddToPlan = () => {
     if (alreadyInPlan) {
-      toast.warning("This workout is already in today's plan.");
+      toast.warning("Already in your plan");
       return;
     }
 
@@ -51,15 +51,15 @@ export default function WorkoutActions({ workout }: WorkoutActionsProps) {
       <button
         type="button"
         onClick={handleAddToPlan}
-        disabled={alreadyInPlan || planIsFull}
+        disabled={planIsFull}
         className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[10px] font-extrabold uppercase tracking-[0.08em] transition ${
-          alreadyInPlan || planIsFull
+          planIsFull
             ? "cursor-not-allowed bg-[#252a23] text-[#666c64]"
             : "bg-[#B8E600] text-[#0b0d0c] hover:bg-[#c7f500]"
         }`}
       >
-        <span aria-hidden="true">＋</span>
-        {alreadyInPlan ? "In Today's Plan" : "Add to Today's Plan"}
+        <span aria-hidden="true">+</span>
+        Add to Today&apos;s Plan
       </button>
 
       <button
