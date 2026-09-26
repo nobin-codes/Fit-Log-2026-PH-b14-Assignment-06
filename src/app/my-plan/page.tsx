@@ -160,9 +160,7 @@ export default function MyPlanPage() {
             <select
               id="sort-my-plan"
               value={sortBy}
-              onChange={(event) =>
-                setSortBy(event.target.value as SortOption)
-              }
+              onChange={(event) => setSortBy(event.target.value as SortOption)}
               className="w-full appearance-none rounded-full border border-[#3a4039] bg-[#111411] px-4 py-3 pr-10 text-xs font-bold uppercase tracking-[0.06em] text-white outline-none transition focus:border-[#ccff00]"
             >
               <option value="duration">Duration</option>
@@ -170,12 +168,20 @@ export default function MyPlanPage() {
               <option value="rating">Rating</option>
             </select>
 
-            <span
+            <svg
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-3 right-4 text-sm text-[#ccff00]"
+              viewBox="0 0 20 20"
+              fill="none"
+              className="pointer-events-none absolute bottom-3 right-4 h-4 w-4 text-[#B8E600]"
             >
-              ↓
-            </span>
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
         </section>
 
